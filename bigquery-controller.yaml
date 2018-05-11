@@ -1,0 +1,27 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: bigquery-controller
+  labels:
+    name: bigquery-controller
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        name: bigquery-controller
+    spec:
+      containers:
+      - name: bigquery
+        image: gcr.io/google-samples/pubsub-bq-pipe:v5
+        env:
+        - name: PROCESSINGSCRIPT
+          value: pubsub-to-bigquery
+        - name: PUBSUB_TOPIC
+          value: # Change this to your twitter topic
+        - name: PROJECT_ID
+          value: # project id
+        - name: BQ_DATASET
+          value: data
+        - name: BQ_TABLE
+          value: tweets
